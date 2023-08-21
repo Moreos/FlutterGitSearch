@@ -9,14 +9,15 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(user.login!),
+      ),
       body: Container(
         margin: EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: getParams()
-          ),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: getParams()),
         ),
       ),
     );
@@ -24,15 +25,32 @@ class UserScreen extends StatelessWidget {
 
   List<Widget> getParams() {
     List<Widget> widgets = [];
-    user.toMap().forEach(
-          (key, value) => widgets.add(Container(
-        child: Row(
-          children: [
-          Text(key, style: TextStyle(fontWeight: FontWeight.bold),),
-          Expanded(child: Text('$value', textAlign: TextAlign.end,)),
-        ],),
-      ),)
-    );
+    user.toMap().forEach((key, value) => widgets.add(
+          Container(
+            decoration: BoxDecoration(
+              border: Border.symmetric(horizontal: BorderSide(color: Colors.black)),
+            ),
+            padding: EdgeInsets.all(4),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 12,
+                  child: Text(
+                    '$key',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Text('-', style: TextStyle(fontWeight: FontWeight.bold),),
+                Expanded(
+                    flex: 18,
+                    child: Text(
+                      '$value',
+                      textAlign: TextAlign.end,
+                    )),
+              ],
+            ),
+          ),
+        ));
     return widgets;
   }
 }
